@@ -1,0 +1,53 @@
+[
+  {
+    "id": "kigali",
+    "school_name": "Kigali School of Kinyarwanda",
+    "language": "Kinyarwanda",
+    "city": "Kigali",
+    "country": "Rwanda",
+    "domain": "kigalischool.com",
+    "whatsapp": "",
+    "starting_price": "45",
+    "standard_price": "100",
+    "template_version": "V35",
+    "status": "Canonical",
+    "netlify_site_id": "",
+    "seasonal_offer_mode": "auto",
+    "seasonal_offer_id": "",
+    "seasonal_offer_code": ""
+  },
+  {
+    "id": "kampala",
+    "school_name": "Kampala School of Luganda",
+    "language": "Luganda",
+    "city": "Kampala",
+    "country": "Uganda",
+    "domain": "kampalaschool.com",
+    "whatsapp": "",
+    "starting_price": "45",
+    "standard_price": "100",
+    "template_version": "V35",
+    "status": "Draft",
+    "netlify_site_id": "",
+    "seasonal_offer_mode": "auto",
+    "seasonal_offer_id": "",
+    "seasonal_offer_code": ""
+  },
+  {
+    "id": "bujumbura",
+    "school_name": "Bujumbura School of Kirundi",
+    "language": "Kirundi",
+    "city": "Bujumbura",
+    "country": "Burundi",
+    "domain": "bujumburaschool.com",
+    "whatsapp": "",
+    "starting_price": "45",
+    "standard_price": "100",
+    "template_version": "V35",
+    "status": "Draft",
+    "netlify_site_id": "",
+    "seasonal_offer_mode": "auto",
+    "seasonal_offer_id": "",
+    "seasonal_offer_code": ""
+  }
+]

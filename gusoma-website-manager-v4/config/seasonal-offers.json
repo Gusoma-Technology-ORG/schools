@@ -1,0 +1,252 @@
+[
+  {
+    "id": "month-start-1",
+    "name": "Beginning of January Offer",
+    "code": "JANSTART"
+  },
+  {
+    "id": "month-end-1",
+    "name": "End of January Offer",
+    "code": "JANEND"
+  },
+  {
+    "id": "month-start-2",
+    "name": "Beginning of February Offer",
+    "code": "FEBSTART"
+  },
+  {
+    "id": "month-end-2",
+    "name": "End of February Offer",
+    "code": "FEBEND"
+  },
+  {
+    "id": "month-start-3",
+    "name": "Beginning of March Offer",
+    "code": "MARSTART"
+  },
+  {
+    "id": "month-end-3",
+    "name": "End of March Offer",
+    "code": "MAREND"
+  },
+  {
+    "id": "month-start-4",
+    "name": "Beginning of April Offer",
+    "code": "APRSTART"
+  },
+  {
+    "id": "month-end-4",
+    "name": "End of April Offer",
+    "code": "APREND"
+  },
+  {
+    "id": "month-start-5",
+    "name": "Beginning of May Offer",
+    "code": "MAYSTART"
+  },
+  {
+    "id": "month-end-5",
+    "name": "End of May Offer",
+    "code": "MAYEND"
+  },
+  {
+    "id": "month-start-6",
+    "name": "Beginning of June Offer",
+    "code": "JUNSTART"
+  },
+  {
+    "id": "month-end-6",
+    "name": "End of June Offer",
+    "code": "JUNEND"
+  },
+  {
+    "id": "month-start-7",
+    "name": "Beginning of July Offer",
+    "code": "JULSTART"
+  },
+  {
+    "id": "month-end-7",
+    "name": "End of July Offer",
+    "code": "JULEND"
+  },
+  {
+    "id": "month-start-8",
+    "name": "Beginning of August Offer",
+    "code": "AUGSTART"
+  },
+  {
+    "id": "month-end-8",
+    "name": "End of August Offer",
+    "code": "AUGEND"
+  },
+  {
+    "id": "month-start-9",
+    "name": "Beginning of September Offer",
+    "code": "SEPSTART"
+  },
+  {
+    "id": "month-end-9",
+    "name": "End of September Offer",
+    "code": "SEPEND"
+  },
+  {
+    "id": "month-start-10",
+    "name": "Beginning of October Offer",
+    "code": "OCTSTART"
+  },
+  {
+    "id": "month-end-10",
+    "name": "End of October Offer",
+    "code": "OCTEND"
+  },
+  {
+    "id": "month-start-11",
+    "name": "Beginning of November Offer",
+    "code": "NOVSTART"
+  },
+  {
+    "id": "month-end-11",
+    "name": "End of November Offer",
+    "code": "NOVEND"
+  },
+  {
+    "id": "month-start-12",
+    "name": "Beginning of December Offer",
+    "code": "DECSTART"
+  },
+  {
+    "id": "month-end-12",
+    "name": "End of December Offer",
+    "code": "DECEND"
+  },
+  {
+    "id": "new-year",
+    "name": "New Year Offer",
+    "code": "NEWYEAR"
+  },
+  {
+    "id": "valentine",
+    "name": "Valentine Offer",
+    "code": "VALENTINE"
+  },
+  {
+    "id": "spring",
+    "name": "Spring Offer",
+    "code": "SPRING"
+  },
+  {
+    "id": "easter",
+    "name": "Easter Offer",
+    "code": "EASTER"
+  },
+  {
+    "id": "may",
+    "name": "May Special Offer",
+    "code": "MAYSPECIAL"
+  },
+  {
+    "id": "mid-year",
+    "name": "Mid-Year Offer",
+    "code": "MIDYEAR"
+  },
+  {
+    "id": "july",
+    "name": "July Special Offer",
+    "code": "JULYSPECIAL"
+  },
+  {
+    "id": "women",
+    "name": "Women’s Day Offer",
+    "code": "WOMENSDAY"
+  },
+  {
+    "id": "heritage",
+    "name": "Heritage Day Offer",
+    "code": "HERITAGE"
+  },
+  {
+    "id": "autumn",
+    "name": "Autumn Offer",
+    "code": "AUTUMN"
+  },
+  {
+    "id": "october",
+    "name": "October Special Offer",
+    "code": "OCTOBER"
+  },
+  {
+    "id": "black-friday",
+    "name": "Black Friday Offer",
+    "code": "BLACKFRIDAY"
+  },
+  {
+    "id": "cyber",
+    "name": "Cyber Week Offer",
+    "code": "CYBERWEEK"
+  },
+  {
+    "id": "december",
+    "name": "December Offer",
+    "code": "DECEMBER"
+  },
+  {
+    "id": "christmas",
+    "name": "Christmas Offer",
+    "code": "CHRISTMAS"
+  },
+  {
+    "id": "year-end",
+    "name": "End of Year Offer",
+    "code": "YEAREND"
+  },
+  {
+    "id": "back-to-school",
+    "name": "Back to School Offer",
+    "code": "BACKTOSCHOOL"
+  },
+  {
+    "id": "language-week",
+    "name": "Language Learning Week Offer",
+    "code": "LANGUAGE"
+  },
+  {
+    "id": "weekend",
+    "name": "Weekend Offer",
+    "code": "WEEKEND"
+  },
+  {
+    "id": "student",
+    "name": "Student Offer",
+    "code": "STUDENT"
+  },
+  {
+    "id": "family",
+    "name": "Family Learning Offer",
+    "code": "FAMILY"
+  },
+  {
+    "id": "diaspora",
+    "name": "Diaspora Learner Offer",
+    "code": "DIASPORA"
+  },
+  {
+    "id": "summer",
+    "name": "Summer Offer",
+    "code": "SUMMER"
+  },
+  {
+    "id": "august",
+    "name": "August Special Offer",
+    "code": "AUGUST"
+  },
+  {
+    "id": "september",
+    "name": "September Special Offer",
+    "code": "SEPTEMBER"
+  },
+  {
+    "id": "teachers",
+    "name": "Teacher Appreciation Offer",
+    "code": "TEACHERS"
+  }
+]
