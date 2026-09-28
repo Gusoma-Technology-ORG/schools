@@ -1,23 +1,7 @@
-export default async (req) => {
-  if (req.method !== 'POST') return new Response('Method not allowed', {status:405});
-  const token=process.env.GITHUB_TOKEN, owner=process.env.GITHUB_OWNER, repo=process.env.GITHUB_REPO, branch=process.env.GITHUB_BRANCH||'main';
-  if(!token||!owner||!repo) return Response.json({ok:false,error:'GitHub environment variables are not configured.'},{status:500});
-  const {schoolId, files, message}=await req.json();
-  if(!schoolId || !files) return Response.json({ok:false,error:'schoolId and files are required'},{status:400});
-  const headers={Authorization:`Bearer ${token}`,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'};
-  const results=[];
-  for(const [name,content] of Object.entries(files)){
-    const path=`sites/${schoolId}/${name}`;
-    const url=`https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path).replaceAll('%2F','/')}`;
-    let sha;
-    const existing=await fetch(`${url}?ref=${encodeURIComponent(branch)}`,{headers});
-    if(existing.ok) sha=(await existing.json()).sha;
-    const body={message:message||`Publish ${schoolId} website`,content:Buffer.from(content).toString('base64'),branch};
-    if(sha) body.sha=sha;
-    const put=await fetch(url,{method:'PUT',headers,body:JSON.stringify(body)});
-    const data=await put.json();
-    if(!put.ok) return Response.json({ok:false,error:data.message||'GitHub publish failed',path},{status:put.status});
-    results.push({path,commit:data.commit?.sha});
-  }
-  return Response.json({ok:true,schoolId,results,note:'Files committed to GitHub. A linked Netlify project will deploy automatically.'});
-};
+const GH_API='https://api.github.com';
+const json=(body,status=200)=>Response.json(body,{status});
+function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function applyConfig(html,s){let out=html;const reps=[['Kigali School of Kinyarwanda',s.school_name],['Kinyarwanda',s.language],['Kigali',s.city],['Rwanda',s.country],['kigalischool.com',s.domain]];for(const [a,b] of reps)if(b)out=out.split(a).join(b);out=out.replace(/<meta name="amasomo-template-version"[^>]*>/i,'').replace('</head>',`<meta name="amasomo-template-version" content="${esc(s.template_version||'V36')}"><meta name="amasomo-school-id" content="${esc(s.id)}"><script>window.AMASOMO_SEASONAL_CONFIG=${JSON.stringify({mode:s.seasonal_offer_mode||'auto',offerId:s.seasonal_offer_id||'',code:s.seasonal_offer_code||''})}<\/script></head>`);return out;}
+function seoFiles(s){const base=`https://${s.domain}/`;return {'robots.txt':`User-agent: *\nAllow: /\n\nUser-agent: OAI-SearchBot\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\n\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${base}sitemap.xml\n`,'sitemap.xml':`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${base}</loc></url></urlset>`,'llms.txt':`# ${s.school_name}\n\nOfficial website: ${base}\nLanguage taught: ${s.language}\nLocation: ${s.city}, ${s.country}\nDelivery: online and in-person at the learner's home or office.\nCanonical website template: ${s.template_version||'V36'}\n`,'school.json':JSON.stringify(s,null,2)};}
+async function ghJson(url,options={}){const r=await fetch(url,options);const text=await r.text();let data={};try{data=text?JSON.parse(text):{}}catch{data={message:text||`HTTP ${r.status}`}}return {r,data};}
+export default async (req)=>{try{if(req.method!=='POST')return json({ok:false,error:'Method not allowed'},405);const token=process.env.GITHUB_TOKEN,owner=process.env.GITHUB_OWNER,repo=process.env.GITHUB_REPO,branch=process.env.GITHUB_BRANCH||'main';if(!token||!owner||!repo)return json({ok:false,error:'GitHub environment variables are not configured.'},500);let payload;try{payload=await req.json()}catch{return json({ok:false,error:'Invalid JSON request.'},400)}const s=payload.school;if(!s?.id||!s?.school_name||!s?.language||!s?.domain)return json({ok:false,error:'school.id, school_name, language and domain are required.'},400);const headers={Authorization:`Bearer ${token}`,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'};const canonicalPath='gusoma-website-manager-v4/canonical/template-v36.html';const canonicalUrl=`${GH_API}/repos/${owner}/${repo}/contents/${canonicalPath}?ref=${encodeURIComponent(branch)}`;const {r:cr,data:cd}=await ghJson(canonicalUrl,{headers});if(!cr.ok)return json({ok:false,error:`Could not load canonical V36 from GitHub: ${cd.message||cr.status}`,path:canonicalPath},cr.status);const canonical=Buffer.from((cd.content||'').replace(/\n/g,''),'base64').toString('utf8');if(!canonical)return json({ok:false,error:'Canonical V36 was empty after loading from GitHub.'},500);const files={'index.html':applyConfig(canonical,s),...seoFiles(s)};const results=[];for(const [name,content] of Object.entries(files)){const path=`sites/${s.id}/${name}`;const url=`${GH_API}/repos/${owner}/${repo}/contents/${encodeURIComponent(path).replaceAll('%2F','/')}`;const {r:er,data:ed}=await ghJson(`${url}?ref=${encodeURIComponent(branch)}`,{headers});let sha=er.ok?ed.sha:undefined;if(!er.ok&&er.status!==404)return json({ok:false,error:`GitHub lookup failed for ${path}: ${ed.message||er.status}`,path},er.status);const body={message:payload.message||`Publish ${s.id} website from FANOS Publisher V5`,content:Buffer.from(content).toString('base64'),branch};if(sha)body.sha=sha;const {r:put,data}=await ghJson(url,{method:'PUT',headers,body:JSON.stringify(body)});if(!put.ok)return json({ok:false,error:`GitHub publish failed for ${path}: ${data.message||put.status}`,path},put.status);results.push({path,commit:data.commit?.sha});}return json({ok:true,schoolId:s.id,results,note:'Files generated server-side from Canonical V36 and committed to GitHub. A linked Netlify project can deploy automatically.'});}catch(e){return json({ok:false,error:`FANOS Publisher V5 server error: ${e?.message||String(e)}`},500)}};

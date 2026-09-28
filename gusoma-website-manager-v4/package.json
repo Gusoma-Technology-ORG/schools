@@ -1,6 +1,6 @@
 {
-  "name": "gusoma-website-manager",
-  "version": "2.0.0",
+  "name": "fanos-publisher",
+  "version": "5.0.0",
   "private": true,
-  "description": "FANOS / Gusoma Website Manager V2 using canonical V34 with mobile sticky navigation"
+  "description": "FANOS Publisher V5 \u2014 small-payload server-side GitHub publishing using canonical V36"
 }
