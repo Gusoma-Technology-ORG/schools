@@ -1,0 +1,17 @@
+{
+  "id": "kigali",
+  "school_name": "Kigali School of Kinyarwanda",
+  "language": "Kinyarwanda",
+  "city": "Kigali",
+  "country": "Rwanda",
+  "domain": "kigalischool.com",
+  "whatsapp": "",
+  "starting_price": "45",
+  "standard_price": "100",
+  "template_version": "V35",
+  "status": "Canonical",
+  "netlify_site_id": "",
+  "seasonal_offer_mode": "auto",
+  "seasonal_offer_id": "",
+  "seasonal_offer_code": ""
+}
