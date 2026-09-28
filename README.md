@@ -1,4 +1,10 @@
-# FANOS / Gusoma Website Manager V2
+# FANOS Publisher V5
+
+FANOS Publisher V5 uses small-payload publishing. The browser sends only the school configuration; the Netlify function loads Canonical V36 from GitHub, generates the school website server-side, and commits it to `sites/<school-id>/`.
+
+The interface uses `fanospublisherlogo.webp` from the Gusoma GitHub media path. FANOS Publisher V5 is visible in the browser tab, application header, and interface tabs. Function responses are parsed safely whether JSON or plain text.
+
+# FANOS Publisher V5 V2
 
 This package turns the approved V36 Kigali canonical into a browser-based school website manager.
 
