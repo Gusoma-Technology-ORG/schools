@@ -27,6 +27,8 @@ export default async (req)=>{try{
  if(!commitR.ok)return json({ok:false,error:`Could not read base GitHub commit: ${commitD.message||commitR.status}`},commitR.status);
  const baseTree=commitD.tree?.sha;if(!baseTree)return json({ok:false,error:'Base GitHub commit did not contain a tree SHA.'},500);
  const tree=[];const results=[];
+ // Remove the legacy flattened file from older FANOS packages, if present.
+ tree.push({path:`sites/${s.id}-index.html`,mode:'100644',type:'blob',sha:null});
  for(const [name,content] of Object.entries(files)){
    const path=`sites/${s.id}/${name}`;
    const sha=await createBlob(content,headers,owner,repo);
@@ -34,10 +36,10 @@ export default async (req)=>{try{
  }
  const {r:treeR,data:treeD}=await ghJson(`${GH_API}/repos/${owner}/${repo}/git/trees`,{method:'POST',headers,body:JSON.stringify({base_tree:baseTree,tree})});
  if(!treeR.ok)return json({ok:false,error:`GitHub tree creation failed: ${treeD.message||treeR.status}`},treeR.status);
- const message=payload.message||`Publish ${s.school_name} from FANOS Publisher V5.1`;
+ const message=payload.message||`Publish ${s.school_name} from FANOS Publisher V6`;
  const {r:newCommitR,data:newCommitD}=await ghJson(`${GH_API}/repos/${owner}/${repo}/git/commits`,{method:'POST',headers,body:JSON.stringify({message,tree:treeD.sha,parents:[parentSha]})});
  if(!newCommitR.ok)return json({ok:false,error:`GitHub commit creation failed: ${newCommitD.message||newCommitR.status}`},newCommitR.status);
  const {r:updateR,data:updateD}=await ghJson(`${GH_API}/repos/${owner}/${repo}/git/refs/heads/${encodeURIComponent(branch)}`,{method:'PATCH',headers,body:JSON.stringify({sha:newCommitD.sha,force:false})});
  if(!updateR.ok)return json({ok:false,error:`GitHub branch update failed: ${updateD.message||updateR.status}`},updateR.status);
  return json({ok:true,schoolId:s.id,commit:newCommitD.sha,results,note:`Generated server-side from deployed Canonical V36 and committed in one GitHub commit (${results.length} files).`});
-}catch(e){return json({ok:false,error:`FANOS Publisher V5.1 server error: ${e?.message||String(e)}`},500)}};
+}catch(e){return json({ok:false,error:`FANOS Publisher V6 server error: ${e?.message||String(e)}`},500)}};
